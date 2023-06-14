@@ -57,3 +57,13 @@ ip
 ```
 
 打开ip，注册账号使用即可。
+
+## 自行打包前端
+
+指定 `.env.production` 如下即可
+
+```bash
+# 请求地址
+VITE_APP_REQUEST_HOST=pro
+```
+

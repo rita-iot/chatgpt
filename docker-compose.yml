@@ -32,8 +32,6 @@ services:
       - MYSQL_ROOT_PASSWORD=admin
       - MYSQL_ROOT_HOST="%"
     command: mysqld
-    expose:
-      - "3306"
     volumes:
       - ./mysql/conf:/etc/mysql/conf.d
       - ./mysql/data:/var/lib/mysql

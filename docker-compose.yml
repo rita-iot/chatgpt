@@ -2,6 +2,20 @@ version: "3"
 networks:
   chatgpt:
 services:
+  nginx:
+    container_name: nginx
+    image: nginx:1.23.3
+    ports:
+      - "80:80"
+    environment:
+      - TZ=Asia/Shanghai
+    volumes:
+      - ./www:/var/www/html
+      - ./nginx:/etc/nginx/conf.d
+      - ./logs:/var/log/nginx
+    restart: unless-stopped
+    networks:
+      - chatgpt
   redis:
     container_name: redis
     image: redis:alpine
@@ -52,10 +66,9 @@ services:
       dockerfile: Dockerfile
     depends_on:
       - redis
+      - nginx
       - mysql
       - phpmyadmin
-    ports:
-      - "8080:8000"
     environment:
       TZ: Asia/Shanghai
     restart: always

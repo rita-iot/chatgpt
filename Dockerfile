@@ -15,8 +15,8 @@ RUN npm install
 # 将本地应用代码复制到容器内
 COPY server/ ./
 
-# 对外暴露 80 端口
-EXPOSE 8000
+# 对外暴露 3200 端口
+EXPOSE 3200
 
 # 运行命令
 CMD [ "node", "index.js" ]

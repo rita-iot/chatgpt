@@ -1,0 +1,63 @@
+version: "3"
+networks:
+  chatgpt:
+services:
+  redis:
+    container_name: redis
+    image: redis:alpine
+    networks:
+      - chatgpt
+  mysql:
+    container_name: mysql
+    image: mysql:5.7.20
+    environment:
+      - TZ=Asia/Shanghai
+      - MYSQL_DATABASE=chatgpt
+      - MYSQL_USER=chatgpt
+      - MYSQL_PASSWORD=chatgpt
+      - MYSQL_ROOT_PASSWORD=admin
+      - MYSQL_ROOT_HOST="%"
+    command: mysqld
+    expose:
+      - "3306"
+    volumes:
+      - ./mysql/conf:/etc/mysql/conf.d
+      - ./mysql/data:/var/lib/mysql
+      - ./mysql/log:/var/log/mysql
+    healthcheck:
+      test: ""
+      interval: 2s
+      timeout: 20s
+      retries: 10
+    restart: unless-stopped
+    networks:
+      - chatgpt
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin:latest
+    container_name: phpmyadmin
+    restart: always
+    ports:
+      - "8001:80"
+    depends_on:
+      - mysql
+    environment:
+      - PMA_HOST=mysql
+      - PMA_PORT=3306
+    networks:
+      - chatgpt
+  mapp:
+    container_name: mapp
+    build:
+      context: .
+      dockerfile: Dockerfile
+    depends_on:
+      - redis
+      - mysql
+      - phpmyadmin
+    ports:
+      - "8080:8000"
+    environment:
+      TZ: Asia/Shanghai
+    restart: always
+    networks:
+      - chatgpt

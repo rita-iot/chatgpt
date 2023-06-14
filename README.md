@@ -10,6 +10,15 @@
 
 ## 运行
 
+克隆项目
+
+```bash
+git clone https://github.com/rita-iot/chatgpt.git
+cd chatgpt
+```
+
+运行
+
 ```bash
 # 编译
 docker compose build

@@ -4,9 +4,15 @@
 
 ## 修改配置
 
-修改 `server\config\index.js` 中的邮箱配置
+修改 `server\config\index.js` 中的邮箱配置，还要修改的是mysql的账户密码。
 
-修改`docker-compose` 文件中的数据库配置信息
+修改`docker-compose` 文件中的数据库配置信息，主要是下面3行，这里要和上文的mysql账户密码一致。
+
+```bash
+- MYSQL_DATABASE=chatgpt
+- MYSQL_USER=chatgpt
+- MYSQL_PASSWORD=chatgpt
+```
 
 ## 运行
 
@@ -36,12 +42,20 @@ docker logs mapp
 #MySQL database connection succeeded.
 ```
 
+## 导入数据库
+
+ip:8001打开phpmyadmin，输入配置好的数据库名和密码
+
+```bash
+ip:8001
+```
+
 ## 反代
 
 自行反代后端即可
 
 ```bash
-ip:8001
-172.17.0.1:8001
+ip:8080
+172.17.0.1:8080
 ```
 

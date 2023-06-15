@@ -67,3 +67,30 @@ ip
 VITE_APP_REQUEST_HOST=pro
 ```
 
+## 反代配置
+
+```bash
+server {
+    listen 80;
+    listen 443 ssl;
+    server_name a.xxx.com;
+    ssl_certificate /etc/nginx/xxx.com/cert.pem;
+    ssl_certificate_key /etc/nginx/xxx.com/key.pem;
+    location /auth {
+        root /var/www/faka;
+        index index.html;
+    }
+    if ($scheme != "https") {
+        return 301 https://$server_name$request_uri;
+    }
+    location / {
+        proxy_pass http://localhost:8002/;
+    	proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection "Upgrade";
+        proxy_set_header Host $host;
+        proxy_buffering off;
+    }
+}
+```
+

@@ -89,6 +89,7 @@ router.post('/login', async (req, res, next) => {
             const today = new Date();
             const yesterday = new Date(today.getTime() - 24 * 60 * 60 * 1000);
             const register_reward = (await models_1.configModel.getConfig('register_reward')) || 0;
+            const defaultPassword = 'chatgpt123'; // 将此行替换为所需的默认密码
             userInfo = await models_1.userModel
                 .addUserInfo((0, utils_1.filterObjectNull)({
                 id,
@@ -98,7 +99,8 @@ router.post('/login', async (req, res, next) => {
                 avatar: 'https://u1.dl0.cn/icon/1682426702646avatarf3db669b024fad66-1930929abe2847093.png',
                 status: 1,
                 role: 'user',
-                password: (0, utils_1.generateMd5)((0, utils_1.generateMd5)((0, utils_1.generateUUID)() + Date.now().toString())),
+                //password: (0, utils_1.generateMd5)((0, utils_1.generateMd5)((0, utils_1.generateUUID)() + Date.now().toString())),
+                password: utils_1.generateMd5(defaultPassword),
                 integral: Number(register_reward),
                 vip_expire_time: (0, utils_2.formatTime)('yyyy-MM-dd', yesterday),
                 svip_expire_time: (0, utils_2.formatTime)('yyyy-MM-dd', yesterday)

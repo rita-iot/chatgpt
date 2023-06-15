@@ -4,7 +4,7 @@ const models_1 = require("../../models");
 const queue_1 = require("../queue");
 async function scheduleToken() {
     const tokens = await models_1.tokenModel.getTokens({ page: 0, page_size: 100 }, {
-        status: 1
+        status: 3
     });
     const list = tokens.rows;
     list.forEach((item) => {

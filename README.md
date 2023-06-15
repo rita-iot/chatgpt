@@ -44,7 +44,7 @@ docker logs mapp
 
 ## 导入数据库
 
-ip:8001打开phpmyadmin，输入配置好的数据库名和密码
+ip:8001打开phpmyadmin，输入配置的用户名和密码
 
 ```bash
 ip:8001

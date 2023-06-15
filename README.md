@@ -60,7 +60,7 @@ ip
 
 ## 自行打包前端
 
-指定 `.env.production` 如下即可
+使用client目录下的源码，指定 `.env.production` 如下即可。
 
 ```bash
 # 请求地址

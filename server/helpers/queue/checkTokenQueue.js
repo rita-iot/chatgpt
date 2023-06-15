@@ -22,10 +22,10 @@ CheckTokenQueue.process(async (job) => {
     const usage = Number(check.total_usage);
     console.log(limit, usage);
     if (check.status) {
-        status = 0;
+        status = 1;
     }
     if (limit <= usage) {
-        status = 0;
+        status = 1;
     }
     await models_1.tokenModel.editToken(id, {
         limit,
